@@ -1,0 +1,2 @@
+read_json_file(file_path) 读取json文件，参数file_path为json文件路径
+high_precision_sum(numbers, precision=20) 高精度计算列表和，参数numbers为数字列表，precision为精度，默认为20
