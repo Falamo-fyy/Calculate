@@ -59,6 +59,18 @@ def queryincomeAnalysis(file_path):
     print(f"实时少用电量{round(realTimeInPower / 10000, 3)}")
     print(f"实时少用增利{round(realTimeInPowerProfit / 1000, 3)}")
 
+    dailyArbitrageGains = (
+        Decimal(str(json_data.get('data', {}).get('dailyArbitrageGains'))))
+
+    arbitrageDeviationCurveSumList = (
+        high_precision_sum(json_data.get('data', {}).get('arbitrageDeviationCurve')))
+
+    print("-" * 20)
+
+    print(f"套利收益: {dailyArbitrageGains}")
+    print(f"套利收益（累加）: {round(dailyArbitrageGains, 3)}")
+    print(f"总和校验：{dailyArbitrageGains == arbitrageDeviationCurveSumList}")
+
 
 if __name__ == '__main__':
     # 概览页-本月总收益
