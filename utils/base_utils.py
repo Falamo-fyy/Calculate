@@ -5,7 +5,7 @@ def read_json_file(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
-        print("JSON数据读取成功！")
+        print(f"JSON数据{file_path}读取成功！")
         return data
     except FileNotFoundError:
         print(f"错误：文件 '{file_path}' 未找到。")
