@@ -12,25 +12,25 @@ def DailyLiquidationCheck(file_path):
     totalClearElectricityQuantity = (
         Decimal(str(json_data.get('data', {}).get('totalClearElectricityQuantity'))))
     # 全日总计电量-中长期
-    mediumLongTermElectricityQuantityCurveSumList = (
-        high_precision_sum(json_data.get('data', {}).get('mediumLongTermElectricityQuantityCurve')))
+    mediumLongTermDeviationElectricityQuantityCurveSumList = (
+        high_precision_sum(json_data.get('data', {}).get('mediumLongTermDeviationElectricityQuantityCurve')))
     # 中长期总计电量-日前市场
     dayAheadElectricityQuantityCurveSumList = (
         high_precision_sum(json_data.get('data', {}).get('dayAheadElectricityQuantityCurve')))
     # 中长期总计电量-实时市场
-    realTimeElectricityQuantityCurveSumList = (
-        high_precision_sum(json_data.get('data', {}).get('realTimeElectricityQuantityCurve')))
+    realTimeDeviationElectricityQuantityCurveSumList = (
+        high_precision_sum(json_data.get('data', {}).get('realTimeDeviationElectricityQuantityCurve')))
     # 总和校验
     totalClearElectricityQuantityCheck = (
-            mediumLongTermElectricityQuantityCurveSumList +
             dayAheadElectricityQuantityCurveSumList +
-            realTimeElectricityQuantityCurveSumList)
+            realTimeDeviationElectricityQuantityCurveSumList)
 
     print("全日总计电量：", totalClearElectricityQuantity)
-    print("中长期总计电量：", mediumLongTermElectricityQuantityCurveSumList)
+    print("中长期总计电量：", mediumLongTermDeviationElectricityQuantityCurveSumList)
     print("日前市场总计电量：", dayAheadElectricityQuantityCurveSumList)
-    print("实时市场总计电量：", realTimeElectricityQuantityCurveSumList)
+    print("实时市场总计电量：", realTimeDeviationElectricityQuantityCurveSumList)
     print("总和校验：", totalClearElectricityQuantityCheck == totalClearElectricityQuantity)
+    print("总和校验：", totalClearElectricityQuantityCheck)
 
     # 分割线
     print("-----------------")
@@ -73,14 +73,14 @@ def DailyLiquidationCheck(file_path):
         round(Decimal(str(totalClearElectricityFee / totalClearElectricityQuantity)), 10)
     )
     mediumLongTermAveragePriceCheck = (
-        round(Decimal(str(mediumLongTermElectricityFeeCurveSumList / mediumLongTermElectricityQuantityCurveSumList)),
+        round(Decimal(str(mediumLongTermElectricityFeeCurveSumList / mediumLongTermDeviationElectricityQuantityCurveSumList)),
               10)
     )
     dayAheadAveragePriceCheck = (
         round(Decimal(str(dayAheadElectricityFeeCurveSumList / dayAheadElectricityQuantityCurveSumList)), 10)
     )
     realTimeAveragePriceCheck = (
-        round(Decimal(str(realTimeElectricityFeeCurveSumList / realTimeElectricityQuantityCurveSumList)), 10)
+        round(Decimal(str(realTimeElectricityFeeCurveSumList / realTimeDeviationElectricityQuantityCurveSumList)), 10)
     )
 
     print("全日加权平均价：", totalClearAveragePrice)
@@ -99,8 +99,8 @@ def DailyLiquidationCheck(file_path):
 
 
 if __name__ == "__main__":
-    # 发电
-    DailyLiquidationCheck("FDdataJson.json")
+    # # 发电
+    # DailyLiquidationCheck("FDdataJson.json")
 
     print("-"*50+"<-发电、售电->"+"-"*50)
     # 售电
